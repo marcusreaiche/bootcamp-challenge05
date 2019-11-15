@@ -101,3 +101,29 @@ export const IssueList = styled.ul`
     }
   }
 `;
+
+export const IssueFilter = styled.footer`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  color: #333;
+  font-size: 16px;
+  font-weight: bold;
+
+  select {
+    margin-left: 5px;
+    background-color: lightblue;
+    border: 0 solid black;
+    outline: none;
+    appearance: none;
+    padding: 2px 2px;
+    border-radius: 2px;
+    font-size: 16px;
+  }
+
+  svg {
+    font-size: 20px;
+  }
+`;

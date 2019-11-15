@@ -12,6 +12,10 @@ export const Form = styled.form`
     font-size: 16px;
     border-radius: 4px;
   }
+
+  input.notFound {
+    border: 1px solid red;
+  }
 `;
 
 const rotate = keyframes`

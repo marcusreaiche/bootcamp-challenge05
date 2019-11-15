@@ -42,39 +42,45 @@ class Main extends Component {
     const v = e.target.value;
     this.setState({
       newRepo: v,
+      repoNotFound: false,
     });
   }
 
   async handleSubmit(e) {
     e.preventDefault();
-    const { newRepo } = this.state;
+    const { newRepo, repositories } = this.state;
     // change loading to true
     this.setState({
       loading: true,
     });
 
-    // try {
+    try {
+      // check if repo was already added
+      if (repositories.find(repo => repo.name === newRepo)) {
+        throw new Error("Duplicated repository");
+      }
       const response = await api.get(`/repos/${newRepo}`);
       const data = {
         name: response.data.full_name,
-       };
+      };
 
       this.setState(prevState => ({
         newRepo: "",
         repositories: [...prevState.repositories, data],
         loading: false,
+        repoNotFound: false,
       }));
-    // } catch (error) {
-    //   this.setState({
-    //     repoNotFound: true,
-    //     loading: false,
-    //   });
-    //   console.log(`${newRepo} was not found...`);
-    // }
+    } catch (error) {
+      this.setState({
+        repoNotFound: true,
+        loading: false,
+      });
+      console.log(error.message);
+    }
   }
 
   render() {
-    const { newRepo, loading, repositories } = this.state;
+    const { newRepo, loading, repositories, repoNotFound } = this.state;
 
     return (
       <Container>
@@ -89,6 +95,7 @@ class Main extends Component {
             placeholder="Add repo"
             value={newRepo}
             onChange={this.handleInputChange}
+            className={ repoNotFound? "notFound" : ""}
           />
 
           <SubmitButton loading={loading}>
