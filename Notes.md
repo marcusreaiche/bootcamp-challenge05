@@ -162,3 +162,82 @@ export default createGlobalStyle`
 `;
 </pre>
 
+## Estilizando página Main
+
+* Nessa aula foi feita a estilização do componente Main no arquivo `styles.js`;
+* Atenção especial para o `flexbox` e para o método `attrs` do styled components que pode ser usado para definir propriedades do componente;
+* No exemplo, definimos o SubmitButton como sendo do tipo `submit` introduzindo o seguinte código
+<pre>
+const SubmitButton = styled.button.attrs({
+  type: "submit"
+})`
+CSS vai aqui...
+`
+</pre>
+
+## Adicionando Repositórios
+
+* Buscamos informações da API do Github a partir da requisição originária do nosso formulário;
+* A lógica do React para atualizar o valor do input, submeter o formulário, etc, não apresentou nenhuma novidade;
+* Vale destacar que usamos a biblioteca `axios` para fazer requisições à API: uma vantagem em relação ao `fetch` é podermos adicionar uma base URL às nossas requisições;
+* O destaque da aula foi o CSS! Vale a pena olhar como ficou o código de `styles.js`;
+
+## Navegação de rotas
+
+* Usamos o `Link` component da biblioteca `react-router-dom` para fazer a navegação entre páginas;
+* Isso faz com que a página não seja recarregada qdo u usuário clicar no link, diferentemente de qdo usamos a anchor tag do HTML;
+* As seguintes funções foram úteis para codificar e decodificar o nome dos repositórios na URL:
+  - `encodeURIComponent`
+  - `decodeURIComponent`
+
+## Carregando dados da API
+
+* Fazemos duas requisições:
+  - ao repositório;
+  - as issues abertas do repositório;
+
+* Vimos como usar o _await_ com o _Promise.all_ para enviar todas as requisições ao mesmo tempo ao invés de enviá-las sequencialmente;
+
+* Podemos filtrar as issues abertas usando o params do axios
+
+<pre>
+api.get(url, {
+  params: {
+    state: "open",
+    per_page: 5,
+  }
+});
+</pre>
+
+## Definindo PropTypes
+
+* Definimos PropTypes como uma propriedade estática da nossa classe (i.e., compartilhada por todas as instâncias);
+
+<pre>
+import PropTypes from "prop-types";
+
+class Repository extends Component {
+
+  static propTypes = {
+    match: PropTypes.shape({
+      params: PropTypes.shape({
+        repository: PropTypes.string
+      })
+    }).isRequired,
+  }
+
+}
+</pre>
+
+## Exibindo repositório
+
+* Uma verdadeira aula de CSS! Sem grandes novidades em termos de _React_.
+
+## Exibindo issues
+
+* Uma verdadeira aula de CSS! Sem grandes novidades em termos de _React_.
+
+
+
+
+
